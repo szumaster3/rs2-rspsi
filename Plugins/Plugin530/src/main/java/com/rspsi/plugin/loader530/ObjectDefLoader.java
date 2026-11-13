@@ -134,7 +134,7 @@ public class ObjectDefLoader extends ObjectDefinitionLoader {
 					if (animation == 65535) {
 						animation = -1;
 					}
-					definition.setAnimation(-1);
+					definition.setAnimation(animation);
 				} else if (opcode == 27) {
 					//setInteractType(1);
 				} else if (opcode == 28) {
@@ -143,8 +143,9 @@ public class ObjectDefLoader extends ObjectDefinitionLoader {
 					definition.setAmbientLighting((byte) (buffer.get()));
 				} else if (opcode == 39) {
 					definition.setLightDiffusion((byte) (buffer.get()));
-				} else if (opcode >= 30 && opcode < 39) {
-					String[] interactions = new String[10];
+				} else if (opcode >= 30 && opcode < 35) {
+					String[] interactions = definition.getInteractions();
+					if (interactions == null) interactions = new String[10];
 					interactions[opcode - 30] = ByteBufferUtils.getOSRSString(buffer);
 					if (interactions[opcode - 30].equalsIgnoreCase("hidden")) {
 						interactions[opcode - 30] = null;
@@ -191,11 +192,11 @@ public class ObjectDefLoader extends ObjectDefinitionLoader {
 				} else if (opcode == 69) {
 					definition.setSurroundings(buffer.get() & 0xff);
 				} else if (opcode == 70) {
-					definition.setTranslateX(buffer.getShort() & 0xffff);
+					definition.setTranslateX(buffer.getShort());
 				} else if (opcode == 71) {
-					definition.setTranslateY(buffer.getShort() & 0xffff);
+					definition.setTranslateY(buffer.getShort());
 				} else if (opcode == 72) {
-					definition.setTranslateZ(buffer.getShort() & 0xffff);
+					definition.setTranslateZ(buffer.getShort());
 				} else if (opcode == 73) {
 					definition.setObstructsGround(true);
 				} else if (opcode == 74) {
@@ -254,7 +255,7 @@ public class ObjectDefLoader extends ObjectDefinitionLoader {
 				} else if (opcode == 101) {
 					buffer.get();
 				} else if (opcode == 102) {
-					buffer.getShort();
+					definition.setMapscene(buffer.getShort() & 0xFFFF);
 
 				} else if (opcode == 249) {
 					int var1 = buffer.get() & 0xff;

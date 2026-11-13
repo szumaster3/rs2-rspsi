@@ -521,6 +521,11 @@ public class SceneGraph {
 	private boolean addRenderable(int plane, int minX, int minY, int deltaX, int deltaY, int centreX, int centreY,
 	                              int renderHeight, Renderable renderable, int yaw, boolean flag, ObjectKey key, boolean temporary) {
 
+		if (key != null && minX >= 0 && minY >= 0 && minX < width && minY < length) {
+			// The anchor belongs to the loaded map, even when adjacent regions are absent.
+			deltaX = Math.min(deltaX, width - minX);
+			deltaY = Math.min(deltaY, length - minY);
+		}
 
 		for (int x = minX; x < minX + deltaX; x++) {
 			for (int y = minY; y < minY + deltaY; y++) {
@@ -4490,7 +4495,8 @@ public class SceneGraph {
 					SceneTile tile = tiles[z][x][y];
 					if (tile != null) {
 						for (GameObject object : tile.gameObjects)
-							if (object != null) {
+							if (object != null && object.getKey() != null
+									&& object.getKey().getX() == x && object.getKey().getY() == y) {
 								objs.add(object);
 							}
 						if (tile.groundDecoration != null) {
@@ -4507,9 +4513,8 @@ public class SceneGraph {
 					for (DefaultWorldObject object : objs) {
 						int objectId = object.getKey().getId();
 						object.setPlane(z);// XXX?
-						ObjectGroup objectGroup = objectGroupMap.getOrDefault(objectId, new ObjectGroup(objectId));
+						ObjectGroup objectGroup = objectGroupMap.computeIfAbsent(objectId, ObjectGroup::new);
 						objectGroup.addObject(object);
-						objectGroupMap.put(objectId, objectGroup);
 					}
 				}
 			}
@@ -4517,7 +4522,7 @@ public class SceneGraph {
 		Buffer buff = new Buffer(new byte[131072]);
 
 		int lastObjectId = -1;
-		for (Entry<Integer, ObjectGroup> entry : objectGroupMap.entrySet().stream().sorted(Comparator.comparingInt(Entry::getKey)).collect(Collectors.toList())) {
+		for (Entry<Integer, ObjectGroup> entry : objectGroupMap.entrySet()) {
 
 			int objectId = entry.getKey();
 			ObjectGroup group = entry.getValue();
@@ -4533,11 +4538,7 @@ public class SceneGraph {
 				int locHash = obj.getLocHash();
 
 				int newLocHash = locHash - previousLocHash + 1;
-				if (previousLocHash != locHash) {
-					buff.writeUSmartInt(newLocHash);
-				} else {
-					buff.writeUSmartInt(1);
-				}
+				buff.writeUSmart(newLocHash);
 				buff.writeByte(obj.getConfig());
 				previousLocHash = locHash;
 			}

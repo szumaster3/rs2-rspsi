@@ -4,7 +4,6 @@ import java.util.ArrayDeque;
 import java.util.Arrays;
 import java.util.List;
 
-import com.rspsi.cache.CacheFileType;
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
@@ -24,6 +23,7 @@ import com.jagex.map.MapRegion;
 import com.jagex.map.SceneGraph;
 import com.jagex.map.object.SpawnedObject;
 import com.jagex.net.ResourceResponse;
+import com.jagex.net.MapResourceRequest;
 import com.jagex.util.BitFlag;
 import com.jagex.util.ObjectKey;
 import com.rspsi.options.Options;
@@ -47,7 +47,8 @@ public class Chunk {
 
 	@Subscribe(threadMode = ThreadMode.ASYNC)
 	public void onResourceResponse(ResourceResponse response) {
-		if(response.getRequest().getType() == CacheFileType.MAP) {
+		if(response.getRequest() instanceof MapResourceRequest
+				&& ((MapResourceRequest) response.getRequest()).getRegionId() == regionHash) {
 			int fileId = response.getRequest().getFile();
 			if(fileId == tileMapId) {
 				tileMapData = response.decompress();
@@ -72,7 +73,14 @@ public class Chunk {
 	public String objectMapName;
 	public String tileMapName;
 	public int regionHash;
+	@Setter
+	private boolean worldRegion;
+
+	public boolean hasWorldRegion() {
+		return worldRegion;
+	}
 	public byte[] tileMapData;
+	public byte[] terrainMetadata = new byte[0];
 
 	public byte[] objectMapData;
 
@@ -119,6 +127,10 @@ public class Chunk {
 		//sceneGraph = new SceneGraph(this, 64, 64, 4);
 	
 		
+	}
+
+	public void dispose() {
+		EventBus.getDefault().unregister(this);
 	}
 	public Chunk(int hash) {
 		this.regionHash = hash;
@@ -278,41 +290,21 @@ public class Chunk {
 
 	}
 
-	public void loadChunk() {
-	
+	public void loadTerrain() {
+		if (tileMapData != null) {
+			terrainMetadata = mapRegion.unpackTiles(tileMapData, offsetX, offsetY, regionX, regionY);
+		}
+	}
 
-			scenegraph.setChunk(this);
-			incompleteAnimables.clear();
-			//scenegraph.reset();
-			
-		/*	for (int z = 0; z < 4; z++) {
-				for (int x = 0; x < 64; x++) {
-					for (int y = 0; y < 64; y++) {
-						mapRegion.tileFlags[z][x][y] = 0;
-					}
-				}
-			}*/
-			System.out.println("Chunk offset " + offsetX + ":" + offsetY);
-			// XXX
-			if (tileMapData != null) {
-				System.out.println("tilemap data not null");
-				mapRegion.unpackTiles(tileMapData, offsetX, offsetY, regionX, regionY);
-
-			} /*else if (regionY < 700) {//XXX Figure out why this exists
-				mapRegion.method174(0, 0, 64, 64);
-			}*/
-			if (objectMapData != null) {
-				System.out.println("object data not null");
-				mapRegion.unpackObjects(scenegraph, objectMapData, offsetX, offsetY);
-
-			}
-
-			
-
-			method63();
-			this.loaded = true;
-
-			updated = true;
+	public void loadObjects() {
+		scenegraph.setChunk(this);
+		incompleteAnimables.clear();
+		if (objectMapData != null) {
+			mapRegion.unpackObjects(scenegraph, objectMapData, offsetX, offsetY);
+		}
+		method63();
+		loaded = true;
+		updated = true;
 	}
 
 	public final void method50(int x, int y, int z, int nullColour, int defaultColour) {
@@ -502,7 +494,6 @@ public class Chunk {
 			if (!MapRegion.objectsReady(objectMapData, 0, 0))
 				return false;
 
-		loadChunk();
 		ready = true;
 		return true;
 	}

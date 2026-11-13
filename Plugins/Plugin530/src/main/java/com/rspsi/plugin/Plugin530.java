@@ -1,7 +1,6 @@
 package com.rspsi.plugin;
 
 import com.displee.cache.index.Index;
-import com.displee.cache.index.archive.Archive;
 import com.jagex.Client;
 import com.jagex.cache.loader.anim.FrameLoader;
 import com.jagex.cache.loader.anim.GraphicLoader;
@@ -13,10 +12,6 @@ import com.jagex.net.ResourceResponse;
 import com.rspsi.cache.CacheFileType;
 import com.rspsi.plugin.loader530.*;
 import com.rspsi.plugins.ClientPlugin;
-import com.rspsi.plugin.loader530.texture.NewTexture;
-import com.rspsi.plugin.loader530.texture.SpriteTextureOperation;
-import com.rspsi.plugin.loader530.texture.TextureDefinition;
-import com.rspsi.plugin.loader530.texture.TextureOperation;
 
 public class Plugin530 implements ClientPlugin {
 
@@ -37,7 +32,7 @@ public class Plugin530 implements ClientPlugin {
 
     @Override
     public void initializePlugin() {
-        touchAdditionalClasses(MapSceneLoader.class, MapSceneLoader.MapScene.class, NewTexture.class, SpriteTextureOperation.class, TextureDefinition.class, TextureOperation.class);
+        touchAdditionalClasses(MapSceneLoader.class, MapSceneLoader.MapScene.class, TextureLoaderOSRS.MaterialColour.class);
         objLoader = new ObjectDefLoader();
         floorLoader = new FloorDefLoader();
         frameLoader = new AnimationFrameLoader();
@@ -63,7 +58,8 @@ public class Plugin530 implements ClientPlugin {
     @Override
     public void onGameLoaded(Client client) {
 
-        frameLoader.init(2500);
+        frameLoader.init(client.getCache().readFile(CacheFileType.ANIMATION),
+                client.getCache().readFile(CacheFileType.SKELETON));
 
         Index configIndex = client.getCache().readFile(CacheFileType.CONFIG);
 
@@ -72,22 +68,17 @@ public class Plugin530 implements ClientPlugin {
         varbitLoader.decodeVarbits(client.getCache().getCacheLibrary().index(22));
         objLoader.decodeObjects(client.getCache().getCacheLibrary().index(16));
 
-        animDefLoader.init(configIndex.archive(12));
-        graphicLoader.init(configIndex.archive(13));
-
-        Index spriteIndex = client.getCache().getCacheLibrary().index(8);
+        animDefLoader.init(client.getCache().getCacheLibrary().index(20));
+        graphicLoader.decodeGraphics(client.getCache().readFile(CacheFileType.SPOT));
 
         MapSceneLoader mapSceneLoader = new MapSceneLoader();
-        mapSceneLoader.init(client, configIndex.archive(18), client.getCache().readFile(CacheFileType.SPRITE));
-
-//		Index skeletonIndex = client.getCache().readFile(CacheFileType.SKELETON);
-//		skeletonLoader.init(skeletonIndex);
+        mapSceneLoader.init(client, configIndex.archive(34), client.getCache().readFile(CacheFileType.SPRITE));
 
         Index mapIndex = client.getCache().readFile(CacheFileType.MAP);
         mapIndexLoader.init(mapIndex);
 
 
-        textureLoader.init(client.getCache().getCacheLibrary().index(9), client.getCache().getCacheLibrary().index(8));
+        textureLoader.init(client.getCache().getCacheLibrary().index(26).archive(0));
 
     }
 

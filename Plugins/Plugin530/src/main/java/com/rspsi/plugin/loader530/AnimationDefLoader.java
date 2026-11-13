@@ -1,6 +1,8 @@
 package com.rspsi.plugin.loader530;
 
+import com.displee.cache.index.Index;
 import com.displee.cache.index.archive.Archive;
+import com.displee.cache.index.archive.file.File;
 import com.jagex.cache.anim.Animation;
 import com.jagex.cache.loader.anim.AnimationDefinitionLoader;
 import com.jagex.io.Buffer;
@@ -21,6 +23,19 @@ public class AnimationDefLoader extends AnimationDefinitionLoader {
         animations = new Animation[1];
     }
 
+    public void init(Index index) {
+        animations = new Animation[(index.last().getId() + 1) << 7];
+        count = 0;
+        for (int groupId : index.archiveIds()) {
+            for (File file : index.archive(groupId).files()) {
+                if (file.getData() != null) {
+                    animations[groupId << 7 | file.getId()] = decode(new Buffer(file.getData()));
+                    count++;
+                }
+            }
+        }
+    }
+
     protected Animation decode(Buffer buffer) {
         Animation animation = new Animation();
         do {
@@ -35,12 +50,15 @@ public class AnimationDefLoader extends AnimationDefinitionLoader {
                 int[] durations = new int[frameCount];
 
                 for (int frame = 0; frame < frameCount; frame++) {
-                    primaryFrames[frame] = buffer.readIMEInt();
+                    durations[frame] = buffer.readUShort();
                     secondaryFrames[frame] = -1;
                 }
 
                 for (int frame = 0; frame < frameCount; frame++) {
-                    durations[frame] = buffer.readUByte();
+                    primaryFrames[frame] = buffer.readUShort();
+                }
+                for (int frame = 0; frame < frameCount; frame++) {
+                    primaryFrames[frame] |= buffer.readUShort() << 16;
                 }
 
 
@@ -64,9 +82,9 @@ public class AnimationDefLoader extends AnimationDefinitionLoader {
             } else if (opcode == 5) {
                 animation.setPriority(buffer.readUByte());
             } else if (opcode == 6) {
-                animation.setPlayerOffhand(buffer.readUShort());
-            } else if (opcode == 7) {
                 animation.setPlayerMainhand(buffer.readUShort());
+            } else if (opcode == 7) {
+                animation.setPlayerOffhand(buffer.readUShort());
             } else if (opcode == 8) {
                 animation.setMaximumLoops(buffer.readUByte());
             } else if (opcode == 9) {
@@ -86,13 +104,14 @@ public class AnimationDefLoader extends AnimationDefinitionLoader {
                     buffer.readUShort();
                 }
             } else if (opcode == 13) {
-                int len = buffer.readUByte();
-
+                int len = buffer.readUShort();
                 for (int i = 0; i < len; i++) {
-                    buffer.skip(3);
+                    int sounds = buffer.readUByte();
+                    if (sounds > 0) {
+                        buffer.skip(3 + (sounds - 1) * 2);
+                    }
                 }
-
-            } else {
+            } else if (opcode < 14 || opcode > 16) {
                 System.out.println("Error unrecognised seq config code: " + opcode);
             }
         } while (true);
@@ -127,9 +146,7 @@ public class AnimationDefLoader extends AnimationDefinitionLoader {
 
     @Override
     public Animation forId(int id) {
-        if (id < 0 || id > animations.length)
-            id = 0;
-        return animations[id];
+        return id >= 0 && id < animations.length ? animations[id] : null;
     }
 
 

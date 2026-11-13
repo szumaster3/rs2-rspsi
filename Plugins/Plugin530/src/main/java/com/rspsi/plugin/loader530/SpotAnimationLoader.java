@@ -2,6 +2,7 @@ package com.rspsi.plugin.loader530;
 
 import com.displee.cache.index.Index;
 import com.displee.cache.index.archive.Archive;
+import com.displee.cache.index.archive.file.File;
 import com.jagex.cache.anim.Graphic;
 import com.jagex.cache.loader.anim.AnimationDefinitionLoader;
 import com.jagex.cache.loader.anim.GraphicLoader;
@@ -20,7 +21,7 @@ public class SpotAnimationLoader extends GraphicLoader {
 
     @Override
     public Graphic forId(int id) {
-        if (id < 0 || id > count)
+        if (id < 0 || id >= graphics.length)
             return null;
         return graphics[id];
     }
@@ -36,9 +37,15 @@ public class SpotAnimationLoader extends GraphicLoader {
     }
 
     public void decodeGraphics(Index index) {
-        int size = index.last().getId() * 255 + index.last().getId();
-        for (int id = 0; id < size; id++) {
-
+        graphics = new Graphic[(index.last().getId() + 1) << 8];
+        count = 0;
+        for (int groupId : index.archiveIds()) {
+            for (File file : index.archive(groupId).files()) {
+                if (file.getData() != null) {
+                    graphics[groupId << 8 | file.getId()] = decode(new Buffer(file.getData()));
+                    count++;
+                }
+            }
         }
     }
 
@@ -51,9 +58,9 @@ public class SpotAnimationLoader extends GraphicLoader {
                 return graphic;
 
             if (opcode == 1) {
-                graphic.setModel(buffer.readBigSmart());
+                graphic.setModel(buffer.readUShort());
             } else if (opcode == 2) {
-                int animationId = buffer.readBigSmart();
+                int animationId = buffer.readUShort();
                 if (animationId >= 0) {
                     graphic.setAnimation(AnimationDefinitionLoader.getAnimation(animationId));
                 }
@@ -68,6 +75,8 @@ public class SpotAnimationLoader extends GraphicLoader {
                 graphic.setAmbience(buffer.readUByte());
             } else if (opcode == 8) {
                 graphic.setModelShadow(buffer.readUByte());
+            } else if (opcode == 9) {
+                // Terrain alignment flag.
             } else if (opcode == 40) {
                 int len = buffer.readUByte();
                 int[] originalColours = new int[len];

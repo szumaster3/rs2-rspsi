@@ -421,11 +421,11 @@ public final class Buffer {
 	}
 
 	public void writeUSmartInt(int value) {
-		if (value > Short.MAX_VALUE) {
-			this.writeInt(value);
-		} else {
-			this.writeUSmart(value);
+		while (value >= Short.MAX_VALUE) {
+			writeUSmart(Short.MAX_VALUE);
+			value -= Short.MAX_VALUE;
 		}
+		writeUSmart(value);
 	}
 
 	public void skip(int bytesToSkip) {

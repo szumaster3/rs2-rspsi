@@ -11,7 +11,9 @@ import com.rspsi.misc.RegionData;
 import java.nio.ByteBuffer;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MapIndexLoaderOSRS extends MapIndexLoader {
 
@@ -42,9 +44,14 @@ public class MapIndexLoaderOSRS extends MapIndexLoader {
 		objects = new int[count];
 		for (int region = 0; region < count; region++) {
 			mapHashes[region] = buffer.readUShort();
-			landscapes[region] = buffer.readUShort();
-			objects[region] = buffer.readUShort();
+			landscapes[region] = readArchiveId(buffer);
+			objects[region] = readArchiveId(buffer);
 		}
+	}
+
+	private int readArchiveId(Buffer buffer) {
+		int id = buffer.readUShort();
+		return id == 0xFFFF ? -1 : id;
 	}
 
 	@Override
@@ -138,13 +145,15 @@ public class MapIndexLoaderOSRS extends MapIndexLoader {
 			throw new IllegalArgumentException("Map index 5 is missing");
 		}
 		List<RegionData> regionData = new ArrayList<>();
-		for (int region = 0; region < 32768; region++) {
+		Map<Integer, Integer> archiveIds = new HashMap<>();
+		for (Archive archive : mapIndex.archives()) {
+			archiveIds.put(archive.getHashName(), archive.getId());
+		}
+		for (int region = 0; region <= 0xFFFF; region++) {
 			int x = region >> 8;
 			int y = region & 0xFF;
-			Archive landscape = mapIndex.archive("m" + x + "_" + y);
-			Archive objects = mapIndex.archive("l" + x + "_" + y);
-			int landscapeId = landscape == null ? -1 : landscape.getId();
-			int objectId = objects == null ? -1 : objects.getId();
+			int landscapeId = archiveIds.getOrDefault(mapIndex.toHash("m" + x + "_" + y), -1);
+			int objectId = archiveIds.getOrDefault(mapIndex.toHash("l" + x + "_" + y), -1);
 			if (landscapeId != -1 || objectId != -1) {
 				regionData.add(new RegionData(region, landscapeId, objectId));
 			}
