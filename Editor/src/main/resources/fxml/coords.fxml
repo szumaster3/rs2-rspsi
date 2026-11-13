@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<VBox stylesheets="@../css/modena_dark.css" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+
+   <children>
+
+      <HBox alignment="CENTER_LEFT" spacing="9.0">
+         <children>
+            <TextField fx:id="xCoordinate" prefWidth="120.0" promptText="X Coordinate" focusTraversable="false"/>
+            <TextField fx:id="yCoordinate" prefWidth="120.0" promptText="Y Coordinate" focusTraversable="false"/>
+         </children>
+         <padding>
+            <Insets bottom="6.0" left="12.0" right="12.0" top="12.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <TextField fx:id="searchField" prefWidth="250.0" promptText="Search location..."  focusTraversable="false"/>
+         </children>
+         <padding>
+            <Insets bottom="6.0" left="12.0" right="12.0" top="0.0" />
+         </padding>
+      </HBox>
+      <HBox alignment="CENTER_LEFT">
+         <children>
+            <ComboBox fx:id="locationComboBox" prefHeight="22.0" prefWidth="250.0" promptText="Select location" />
+         </children>
+         <padding>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="0.0" />
+         </padding>
+      </HBox>
+
+      <HBox alignment="CENTER" spacing="9.0">
+         <children>
+            <Label text="Width" />
+            <Spinner fx:id="widthSpinner" editable="true" maxWidth="70.0" />
+
+            <Label text="Length">
+               <font>
+                  <Font name="JetBrains Mono Regular" size="11.0" />
+               </font>
+            </Label>
+
+            <Spinner fx:id="lengthSpinner" editable="true" maxWidth="70.0" />
+         </children>
+         <padding>
+            <Insets bottom="12.0" left="12.0" right="12.0" top="5.0" />
+         </padding>
+      </HBox>
+
+      <Separator prefWidth="200.0" />
+
+      <HBox alignment="BOTTOM_CENTER" spacing="15.0">
+         <children>
+            <Button fx:id="okButton" minWidth="70.0" text="OK" />
+            <Button fx:id="cancelButton" minWidth="70.0" text="Cancel" />
+         </children>
+         <padding>
+            <Insets bottom="12.0" left="12.0" right="18.0" top="12.0" />
+         </padding>
+      </HBox>
+
+   </children>
+
+   <padding>
+      <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+   </padding>
+</VBox>

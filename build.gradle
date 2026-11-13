@@ -1,0 +1,70 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'io.franzbecker.gradle-lombok' version '3.3.0'
+    id 'org.openjfx.javafxplugin' version '0.0.7'
+    id 'org.beryx.runtime' version '1.2.0' apply false
+}
+
+wrapper {
+    gradleVersion = '6.1'
+}
+
+group 'RSPSi Editor'
+version '1.0-SNAPSHOT'
+
+allprojects {
+    repositories {
+        mavenCentral()
+        mavenLocal()
+        maven { url "https://repo.maven.apache.org/maven2" }
+        maven { url "https://repo.adobe.com/nexus/content/repositories/public/" }
+    }
+    tasks.withType(JavaCompile) {
+        sourceCompatibility = '1.8'
+        targetCompatibility = '1.8'
+        options.fork = true
+        options.incremental = true
+    }
+}
+
+subprojects {
+    apply plugin: 'java'
+    apply plugin: 'io.franzbecker.gradle-lombok'
+    apply plugin: 'org.openjfx.javafxplugin'
+
+    dependencies {
+        implementation 'com.displee:rs-cache-library:6.8'
+        implementation 'ch.qos.logback:logback-classic:1.2.3'
+        implementation 'org.checkerframework:checker-qual:2.9.0'
+        implementation 'com.google.guava:guava:28.0-jre'
+        implementation 'com.google.code.gson:gson:2.8.5'
+        implementation files("${rootProject.projectDir}/libs/javafx-controls-11.jar")
+        implementation files("${rootProject.projectDir}/libs/javafx-fxml-11.jar")
+        implementation("com.displee:disio:1.6")
+
+        compile group: 'com.github.jponge', name: 'lzma-java', version: '1.3'
+        compile group: 'org.apache.commons', name: 'commons-compress', version: '1.14'
+    }
+
+    lombok {
+        version = "1.18.12"
+        sha256 = "49381508ecb02b3c173368436ef71b24c0d4418ad260e6cc98becbcf4b345406"
+    }
+
+    javafx {
+        version = "11.0.1"
+        modules = [
+                'javafx.fxml',
+                'javafx.controls',
+                'javafx.media',
+                'javafx.swing'
+        ]
+    }
+}
+
+tasks.run {
+    jvmArgs = [
+            "--add-exports", "javafx.graphics/com.sun.javafx.css=ALL-UNNAMED"
+    ]
+}

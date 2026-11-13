@@ -1,0 +1,37 @@
+plugins {
+    id 'application'
+    id 'org.openjfx.javafxplugin'
+}
+
+group = 'Editor UI'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation project(':Client')
+    implementation 'com.displee:rs-cache-library:6.8'
+    implementation 'org.controlsfx:controlsfx:11.1.0'
+    implementation 'com.jfoenix:jfoenix:9.0.10'
+}
+
+application {
+    mainClassName = 'com.rspsi.LauncherWindow'
+    applicationDefaultJvmArgs = [
+            '--module-path', "$buildDir/javafx-sdk-11/lib",
+            '--add-modules', 'javafx.controls,javafx.fxml'
+    ]
+}
+
+jar {
+    archiveFileName = "Editor.jar"
+    manifest {
+        attributes(
+                'Main-Class': 'com.rspsi.LauncherWindow'
+        )
+    }
+    from {
+        configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
+    }
+}

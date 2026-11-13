@@ -1,0 +1,6 @@
+rootProject.name = 'rs2-map_edit'
+
+include ':Client'
+include ':Editor'
+include ':Plugins'
+include 'Plugins:Plugin530'

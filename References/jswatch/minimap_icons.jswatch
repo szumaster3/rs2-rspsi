@@ -1,0 +1,1255 @@
+[ {
+  "id" : 31451,
+  "rotation" : {
+    "x" : 0.0,
+    "y" : 0.0,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:51",
+  "root" : false
+}, {
+  "id" : 8721,
+  "rotation" : {
+    "x" : 0.0,
+    "y" : 0.0,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:58",
+  "root" : false
+}, {
+  "id" : 8719,
+  "rotation" : {
+    "x" : 0.0,
+    "y" : 0.0,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:53",
+  "root" : false
+}, {
+  "id" : 8722,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:59",
+  "root" : false
+}, {
+  "id" : 8723,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:60",
+  "root" : false
+}, {
+  "id" : 738,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:38",
+  "root" : false
+}, {
+  "id" : 775,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:49",
+  "root" : false
+}, {
+  "id" : 2733,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:0",
+  "root" : false
+}, {
+  "id" : 2734,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:1",
+  "root" : false
+}, {
+  "id" : 2735,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:2",
+  "root" : false
+}, {
+  "id" : 2736,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:3",
+  "root" : false
+}, {
+  "id" : 2737,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:4",
+  "root" : false
+}, {
+  "id" : 2738,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:5",
+  "root" : false
+}, {
+  "id" : 2739,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:6",
+  "root" : false
+}, {
+  "id" : 2740,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:7",
+  "root" : false
+}, {
+  "id" : 2741,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:8",
+  "root" : false
+}, {
+  "id" : 2742,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:9",
+  "root" : false
+}, {
+  "id" : 2743,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:10",
+  "root" : false
+}, {
+  "id" : 2744,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:11",
+  "root" : false
+}, {
+  "id" : 2745,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:12",
+  "root" : false
+}, {
+  "id" : 2746,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:13",
+  "root" : false
+}, {
+  "id" : 2747,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:14",
+  "root" : false
+}, {
+  "id" : 2748,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:15",
+  "root" : false
+}, {
+  "id" : 2749,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:16",
+  "root" : false
+}, {
+  "id" : 2750,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:17",
+  "root" : false
+}, {
+  "id" : 2751,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:18",
+  "root" : false
+}, {
+  "id" : 2752,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:19",
+  "root" : false
+}, {
+  "id" : 2753,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:20",
+  "root" : false
+}, {
+  "id" : 2754,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:21",
+  "root" : false
+}, {
+  "id" : 2755,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:22",
+  "root" : false
+}, {
+  "id" : 2756,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:23",
+  "root" : false
+}, {
+  "id" : 2757,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:24",
+  "root" : false
+}, {
+  "id" : 2758,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:25",
+  "root" : false
+}, {
+  "id" : 2759,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:26",
+  "root" : false
+}, {
+  "id" : 2760,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:27",
+  "root" : false
+}, {
+  "id" : 2761,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:28",
+  "root" : false
+}, {
+  "id" : 2762,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:29",
+  "root" : false
+}, {
+  "id" : 2763,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:30",
+  "root" : false
+}, {
+  "id" : 2764,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:31",
+  "root" : false
+}, {
+  "id" : 2765,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:32",
+  "root" : false
+}, {
+  "id" : 2766,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:33",
+  "root" : false
+}, {
+  "id" : 2767,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:34",
+  "root" : false
+}, {
+  "id" : 2768,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:35",
+  "root" : false
+}, {
+  "id" : 2769,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:36",
+  "root" : false
+}, {
+  "id" : 2770,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:37",
+  "root" : false
+}, {
+  "id" : 2771,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 1500,
+  "name" : "minimap-function:39",
+  "root" : false
+}, {
+  "id" : 2772,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:40",
+  "root" : false
+}, {
+  "id" : 2773,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:41",
+  "root" : false
+}, {
+  "id" : 2774,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:42",
+  "root" : false
+}, {
+  "id" : 2775,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:43",
+  "root" : false
+}, {
+  "id" : 2776,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:44",
+  "root" : false
+}, {
+  "id" : 2777,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:45",
+  "root" : false
+}, {
+  "id" : 2778,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:46",
+  "root" : false
+}, {
+  "id" : 2779,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:47",
+  "root" : false
+}, {
+  "id" : 2780,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:48",
+  "root" : false
+}, {
+  "id" : 4709,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:50",
+  "root" : false
+}, {
+  "id" : 5118,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:51",
+  "root" : false
+}, {
+  "id" : 5119,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:52",
+  "root" : false
+}, {
+  "id" : 5120,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:54",
+  "root" : false
+}, {
+  "id" : 7054,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:55",
+  "root" : false
+}, {
+  "id" : 7389,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:56",
+  "root" : false
+}, {
+  "id" : 8719,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:53",
+  "root" : false
+}, {
+  "id" : 8721,
+  "rotation" : {
+    "x" : -178.02358370342162,
+    "y" : 10.471975511965981,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:58",
+  "root" : false
+}, {
+  "id" : 10095,
+  "rotation" : {
+    "x" : -358.14156250923645,
+    "y" : 58.643062867009476,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:61",
+  "root" : false
+}, {
+  "id" : 10176,
+  "rotation" : {
+    "x" : -358.14156250923645,
+    "y" : 58.643062867009476,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:62",
+  "root" : false
+}, {
+  "id" : 15531,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:57",
+  "root" : false
+}, {
+  "id" : 15532,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:67",
+  "root" : false
+}, {
+  "id" : 15533,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 560,
+  "name" : "minimap-function:68",
+  "root" : false
+}, {
+  "id" : 15534,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:69",
+  "root" : false
+}, {
+  "id" : 17030,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:70",
+  "root" : false
+}, {
+  "id" : 19750,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:63",
+  "root" : false
+}, {
+  "id" : 19751,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:65",
+  "root" : false
+}, {
+  "id" : 20989,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:73",
+  "root" : false
+}, {
+  "id" : 21655,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:71",
+  "root" : false
+}, {
+  "id" : 23590,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:74",
+  "root" : false
+}, {
+  "id" : 26219,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:75",
+  "root" : false
+}, {
+  "id" : 27990,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:78",
+  "root" : false
+}, {
+  "id" : 27991,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:79",
+  "root" : false
+}, {
+  "id" : 27992,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:80",
+  "root" : false
+}, {
+  "id" : 27993,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:81",
+  "root" : false
+}, {
+  "id" : 27994,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:82",
+  "root" : false
+}, {
+  "id" : 27995,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:83",
+  "root" : false
+}, {
+  "id" : 27996,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:84",
+  "root" : false
+}, {
+  "id" : 28705,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:76",
+  "root" : false
+}, {
+  "id" : 28706,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:77",
+  "root" : false
+}, {
+  "id" : 28775,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:92",
+  "root" : false
+}, {
+  "id" : 29992,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:93",
+  "root" : false
+}, {
+  "id" : 30041,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:66",
+  "root" : false
+}, {
+  "id" : 30764,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:56",
+  "root" : false
+}, {
+  "id" : 31451,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:51",
+  "root" : false
+}, {
+  "id" : 38297,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:56",
+  "root" : false
+}, {
+  "id" : 38423,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:38",
+  "root" : false
+}, {
+  "id" : 38428,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:95",
+  "root" : false
+}, {
+  "id" : 38670,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:94",
+  "root" : false
+}, {
+  "id" : 40094,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:2",
+  "root" : false
+}, {
+  "id" : 40095,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:39",
+  "root" : false
+}, {
+  "id" : 40096,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:21",
+  "root" : false
+}, {
+  "id" : 40097,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:3",
+  "root" : false
+}, {
+  "id" : 40098,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:31",
+  "root" : false
+}, {
+  "id" : 40099,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:40",
+  "root" : false
+}, {
+  "id" : 40100,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:25",
+  "root" : false
+}, {
+  "id" : 40101,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:36",
+  "root" : false
+}, {
+  "id" : 40102,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:6",
+  "root" : false
+}, {
+  "id" : 40103,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:56",
+  "root" : false
+}, {
+  "id" : 41543,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:74",
+  "root" : false
+}, {
+  "id" : 8718,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:6",
+  "root" : false
+}, {
+  "id" : 8720,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:6",
+  "root" : false
+}, {
+  "id" : 9393,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:1",
+  "root" : false
+}, {
+  "id" : 9394,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:2",
+  "root" : false
+}, {
+  "id" : 9395,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:5",
+  "root" : false
+}, {
+  "id" : 9396,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:22",
+  "root" : false
+}, {
+  "id" : 9397,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:38",
+  "root" : false
+}, {
+  "id" : 9678,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:39",
+  "root" : false
+}, {
+  "id" : 10462,
+  "rotation" : {
+    "x" : -513.1268000863328,
+    "y" : 117.28612573401891,
+    "z" : 0.0
+  },
+  "type" : 22,
+  "zoom" : 589,
+  "name" : "minimap-function:39",
+  "root" : false
+} ]
