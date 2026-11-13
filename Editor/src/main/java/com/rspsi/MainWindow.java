@@ -858,81 +858,34 @@ public class MainWindow extends Application {
 				return;
 			}
 
-			Cache cache = clientInstance.getCache();
-
-			new Thread(() -> {
+			Client.runLater.add(() -> {
 				try {
 					Chunk chunk = clientInstance.getCurrentChunk();
-
-					int mapIndexId = 5;
-
-					int landArchive = chunk.tileMapId;
-					int objectArchive = chunk.objectMapId;
-
-					int regionId = chunk.regionHash;
-					int[] xtea = XTEAManager.lookupMap(regionId);
-					boolean missing = xtea == null || xtea.length != 4 ||
-							(xtea[0] == 0 && xtea[1] == 0 && xtea[2] == 0 && xtea[3] == 0);
-					if (missing) {
-						throw new IOException("No valid XTEA keys are available for region " + regionId
-								+ " (" + chunk.regionX + "," + chunk.regionY + "). Object data was not written to avoid corrupting the cache.");
-					}
-					if (landArchive < 0 || objectArchive < 0) {
-						throw new IOException("The map_index entry is incomplete for region " + regionId
-								+ " (landscape archive " + landArchive + ", object archive " + objectArchive + ").");
+					if (chunk == null || !chunk.hasLoaded() || !chunk.hasWorldRegion()) {
+						throw new IOException("Open a cache region or a pack with world coordinates before saving to cache.");
 					}
 
-					byte[] existingObjectMap;
-					try {
-						existingObjectMap = cache.getCacheLibrary().data(mapIndexId, objectArchive, 0, xtea);
-					} catch (Exception invalidSelectedKey) {
-						throw new IOException("The selected XTEA key could not decode object archive "
-								+ objectArchive + " for region " + regionId
-								+ ". Please load the correct XTEA keys.", invalidSelectedKey);
-					}
-					if (existingObjectMap == null || (chunk.objectMapData != null
-							&& !Arrays.equals(existingObjectMap, chunk.objectMapData))) {
-						throw new IOException("The selected XTEA key does not match the existing object archive "
-								+ objectArchive + " for region " + regionId
-								+ ". The cache was not modified.");
-					}
-
-					byte[] tileMap = chunk.mapRegion.save_terrain_block(chunk);
-					byte[] objectMap = clientInstance.sceneGraph.saveObjects(chunk);
-					if (tileMap == null || objectMap == null) {
-						throw new IOException("Map serialization returned empty data for region " + regionId + ".");
-					}
-
-					cache.getCacheLibrary().put(mapIndexId, landArchive, tileMap);
-					cache.getCacheLibrary().put(mapIndexId, objectArchive, objectMap, xtea);
-
-					byte[] verifiedTileMap = cache.getCacheLibrary().data(mapIndexId, landArchive, 0);
-					byte[] verifiedObjectMap = cache.getCacheLibrary().data(mapIndexId, objectArchive, 0, xtea);
-					if (!Arrays.equals(tileMap, verifiedTileMap)
-							|| !Arrays.equals(objectMap, verifiedObjectMap)) {
-						throw new IOException("Cache write verification failed for region " + regionId
-								+ ". The map/object archives did not round-trip correctly.");
-					}
+					Cache cache = clientInstance.getCache();
+					cache.saveMap(chunk.regionHash, chunk.mapRegion.save_terrain_block(chunk),
+							chunk.scenegraph.saveObjects(chunk));
 
 					try {
-						WorldMapCacheSynchronizer.Result worldMapResult =
-							WorldMapCacheSynchronizer.synchronize(cache.getCacheLibrary(), chunk);
-						log.info("Synchronized World Map group '{}' for region {},{} (index 23).",
-							worldMapResult.mapGroup, worldMapResult.regionX, worldMapResult.regionY);
+						WorldMapCacheSynchronizer.Result result =
+								WorldMapCacheSynchronizer.synchronize(cache.getCacheLibrary(), chunk);
+						cache.getCacheLibrary().index(23).update();
+						log.info("Synchronized World Map group '{}' for region {},{}.",
+								result.mapGroup, result.regionX, result.regionY);
 					} catch (Exception worldMapError) {
-						log.error("Could not synchronize World Map index 23. The terrain/object map will still be saved.", worldMapError);
+						log.error("Could not synchronize World Map index 23", worldMapError);
 						Platform.runLater(() -> FXDialogs.showWarning(stage, "World Map was not synchronized",
-							"The region was saved to map index 5, but its World Map data could not be updated.\n\n" + worldMapError.getMessage()));
+								"The region was saved to map index 5.\n\n" + worldMapError.getMessage()));
 					}
-
-					cache.getCacheLibrary().update();
-
 				} catch (Exception e) {
 					log.error("Failed to save map region to cache", e);
 					Platform.runLater(() -> FXDialogs.showError(stage, "Map save failed", e.getMessage() == null
-							? "The map could not be saved. The cache was not updated." : e.getMessage()));
+							? "The map could not be saved." : e.getMessage()));
 				}
-			}).start();
+			});
 		});
 	}
 

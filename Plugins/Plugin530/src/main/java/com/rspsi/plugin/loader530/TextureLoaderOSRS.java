@@ -1,121 +1,87 @@
 package com.rspsi.plugin.loader530;
 
-import com.google.common.collect.Maps;
+import com.displee.cache.index.archive.Archive;
 import com.jagex.cache.loader.textures.TextureLoader;
+import com.jagex.draw.raster.GameRasterizer;
 import com.jagex.draw.textures.Texture;
 import com.jagex.io.Buffer;
-import com.rspsi.misc.FixedHashMap;
-import lombok.extern.slf4j.Slf4j;
-import com.displee.cache.index.Index;
-import com.displee.cache.index.archive.Archive;
-import com.rspsi.plugin.loader530.texture.NewTexture;
-import com.rspsi.plugin.loader530.texture.SpriteTextureOperation;
-import com.rspsi.plugin.loader530.texture.TextureDefinition;
 
-import java.util.Map;
-import java.util.stream.IntStream;
+import java.util.Arrays;
 
-@Slf4j
 public class TextureLoaderOSRS extends TextureLoader {
-
-	private Index textureIndex, spriteIndex;
-
-	private Texture[] textures = new Texture[0];
-	private boolean[] transparent = new boolean[0];
-	private double brightness = 0.8;
-	private FixedHashMap<Integer, int[]> textureCache = new FixedHashMap<Integer, int[]>(20);
-
-
-	@Override
-	public Texture forId(int arg0) {
-		if(arg0 < 0 || arg0 >= textures.length)
-			return null;
-		return textures[arg0];
-	}
-
-	@Override
-	public int[] getPixels(int textureId) {
-
-		Texture texture = forId(textureId);
-		if(texture == null)
-			return null;
-
-		if(textureCache.contains(textureId))
-			return textureCache.get(textureId);
-
-		int[] texels = new int[0x10000];
-		texture.setBrightness(brightness);
-		textureCache.put(textureId, texels);
-
-		return texels;
-	}
+	private Texture[] materials = new Texture[0];
 
 	@Override
 	public void init(Archive archive) {
-
-	}
-
-	public void init(Index textureIndex, Index spriteIndex){
-		this.textureIndex = textureIndex;
-		this.spriteIndex = spriteIndex;
-		SpriteTextureOperation.spriteIndex = spriteIndex;
-		NewTexture.spriteIndex = spriteIndex;
-
-		Map<Integer, Texture> textureList = Maps.newConcurrentMap();
-		for(int archiveId = 0;archiveId< IntStream.of(textureIndex.archiveIds()).max().orElse(0);archiveId++) {
-			Archive archive = textureIndex.archive(archiveId);
-			if(archive == null){
-				log.info("Archive {} null", archiveId);
-			}
-			byte[] data = archive.file(0).getData();
-			try {
-				TextureDefinition textureDefinition = new TextureDefinition(new Buffer(data));
-				Texture tex = textureDefinition.convertToTexture(false);
-
-				if (tex != null) {
-					textureList.put(archiveId, tex);
-				}
-			} catch (Exception ex){
-				ex.printStackTrace();
-			}
+		Buffer buffer = new Buffer(archive.file(0).getData());
+		int count = buffer.readUShort();
+		boolean[] present = new boolean[count];
+		int presentCount = 0;
+		for (int id = 0; id < count; id++) {
+			present[id] = buffer.readUByte() == 1;
+			if (present[id]) presentCount++;
 		}
-
-		int maxId = textureList.keySet().stream().max(Integer::compareTo).orElse(0);
-		textures = new Texture[maxId];
-		transparent = new boolean[maxId];
-		int nonNullAmt = 0;
-
-		for(Map.Entry<Integer, Texture> entry : textureList.entrySet()){
-			if(entry.getValue() != null){
-				textures[entry.getKey()] = entry.getValue();
-				nonNullAmt++;
-			}
+		// The four flags and four material properties are stored column by column.
+		buffer.skip(presentCount * 8);
+		materials = new Texture[count];
+		for (int id = 0; id < count; id++) {
+			if (present[id]) materials[id] = new MaterialColour(buffer.readUShort());
 		}
-		log.info("Loaded {}/{} textures | {} | {}", nonNullAmt, maxId, textureIndex.archives().length, textureList.size());
-	}
-
-
-	@Override
-	public boolean isTransparent(int arg0) {
-		if(arg0 < 0 || arg0 > transparent.length)
-			return false;
-		return transparent[arg0];
 	}
 
 	@Override
-	public void setBrightness(double arg0) {
-		textureCache.clear();
-		this.brightness = arg0;
+	public Texture forId(int id) {
+		if (id < 0 || id >= materials.length || materials[id] == null) return null;
+		return materials[id];
+	}
+
+	@Override
+	public int[] getPixels(int id) {
+		return null;
+	}
+
+	@Override
+	public boolean isTransparent(int id) {
+		return false;
+	}
+
+	@Override
+	public void setBrightness(double brightness) {
+		// Material colours are read from the rasterizer's current HSL palette.
 	}
 
 	@Override
 	public int count() {
-		return textures.length;
+		return materials.length;
 	}
 
-	@Override
-	public void init(byte[] arg0) {
+	public static final class MaterialColour extends Texture {
+		private final int hsl;
 
+		private MaterialColour(int hsl) {
+			super(16, 16);
+			this.hsl = hsl;
+		}
+
+		private void refresh() {
+			int rgb = averageTextureColour();
+			if (pixels[0] != rgb) Arrays.fill(pixels, rgb);
+		}
+
+		@Override
+		public javafx.scene.image.WritableImage getAsFXImage() {
+			refresh();
+			return super.getAsFXImage();
+		}
+
+		@Override
+		public int averageTextureColour() {
+			return GameRasterizer.getInstance().colourPalette[hsl];
+		}
+
+		@Override
+		public boolean supportsAlpha() {
+			return false;
+		}
 	}
-
 }

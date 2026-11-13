@@ -12,6 +12,9 @@ import com.rspsi.misc.Vector2;
 
 public class MultiMapEncoder {
 
+	private static final int VERSIONED_PACK = -1;
+	private static final int VERSION = 1;
+
 	/**
 	 * Encodes only loaded chunks and writes the number of records actually
 	 * emitted. The old implementation wrote chunks.size() before skipping
@@ -44,6 +47,8 @@ public class MultiMapEncoder {
 		try {
 			ByteArrayOutputStream bytes = new ByteArrayOutputStream();
 			DataOutputStream output = new DataOutputStream(bytes);
+			output.writeInt(VERSIONED_PACK);
+			output.writeInt(VERSION);
 			output.writeInt(chunks.size());
 			for (Chunk chunk : chunks) {
 				byte[] objectMap = encodeCurrentState
@@ -59,6 +64,7 @@ public class MultiMapEncoder {
 				output.writeInt(chunk.tileMapId);
 				output.writeInt(chunk.offsetX / 64);
 				output.writeInt(chunk.offsetY / 64);
+				output.writeInt(chunk.hasWorldRegion() ? chunk.regionHash : -1);
 				output.writeInt(objectMap.length);
 				output.write(objectMap);
 				output.writeInt(tileMap.length);
@@ -74,7 +80,8 @@ public class MultiMapEncoder {
 
 	public static Vector2 getSize(byte[] encoded) {
 		ByteBuffer buffer = ByteBuffer.wrap(encoded);
-		int size = readCount(buffer);
+		boolean versioned = readHeader(buffer);
+		int size = readCount(buffer, versioned);
 		int maximumX = 0;
 		int maximumY = 0;
 		for (int i = 0; i < size; i++) {
@@ -82,6 +89,9 @@ public class MultiMapEncoder {
 			buffer.getInt();
 			int positionX = buffer.getInt();
 			int positionY = buffer.getInt();
+			if (versioned) {
+				buffer.getInt();
+			}
 			maximumX = Math.max(maximumX, positionX);
 			maximumY = Math.max(maximumY, positionY);
 			skipBytes(buffer);
@@ -93,18 +103,24 @@ public class MultiMapEncoder {
 	public static List<Chunk> decode(byte[] encoded) {
 		List<Chunk> chunks = new ArrayList<>();
 		ByteBuffer buffer = ByteBuffer.wrap(encoded);
-		int size = readCount(buffer);
+		boolean versioned = readHeader(buffer);
+		int size = readCount(buffer, versioned);
 		for (int i = 0; i < size; i++) {
 			int objectMapId = buffer.getInt();
 			int tileMapId = buffer.getInt();
 			int positionX = buffer.getInt();
 			int positionY = buffer.getInt();
+			int regionHash = versioned ? buffer.getInt() : -1;
+			if (regionHash < -1 || regionHash > 0xFFFF) {
+				throw new IllegalArgumentException("Invalid world region in map pack: " + regionHash);
+			}
 			byte[] objectData = readBytes(buffer);
 			byte[] landscapeData = readBytes(buffer);
 			int chunkX = positionX * 64;
 			int chunkY = positionY * 64;
-			int hash = (positionX << 8) | positionY;
+			int hash = regionHash >= 0 ? regionHash : (positionX << 8) | positionY;
 			Chunk chunk = new Chunk(hash);
+			chunk.setWorldRegion(regionHash >= 0);
 			chunk.offsetX = chunkX;
 			chunk.offsetY = chunkY;
 			chunk.objectMapData = objectData;
@@ -119,12 +135,23 @@ public class MultiMapEncoder {
 		return chunks;
 	}
 
-	private static int readCount(ByteBuffer buffer) {
+	private static boolean readHeader(ByteBuffer buffer) {
+		if (buffer.remaining() < 4 || buffer.getInt(0) != VERSIONED_PACK) {
+			return false;
+		}
+		buffer.getInt();
+		if (buffer.remaining() < 4 || buffer.getInt() != VERSION) {
+			throw new IllegalArgumentException("Unsupported map pack version");
+		}
+		return true;
+	}
+
+	private static int readCount(ByteBuffer buffer, boolean versioned) {
 		if (buffer.remaining() < 4) {
 			throw new IllegalArgumentException("Invalid map pack: missing chunk count");
 		}
 		int count = buffer.getInt();
-		if (count < 0 || count > buffer.remaining() / 24) {
+		if (count < 0 || count > buffer.remaining() / (versioned ? 28 : 24)) {
 			throw new IllegalArgumentException("Invalid map pack chunk count: " + count);
 		}
 		return count;

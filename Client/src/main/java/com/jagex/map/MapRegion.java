@@ -339,7 +339,7 @@ public final class MapRegion {
 				int config = 0;
 
 				do {
-					int offset = buffer.readUSmartInt();
+					int offset = buffer.readUSmart();
 					if (offset == 0) {
 						break;
 					}
@@ -440,7 +440,7 @@ public final class MapRegion {
 				int position = 0;
 
 				do {
-					int offset = buffer.readUSmartInt();
+					int offset = buffer.readUSmart();
 					if (offset == 0) {
 						break;
 					}
@@ -450,9 +450,6 @@ public final class MapRegion {
 					int xOffset = position >> 6 & 0x3f;
 					int z = position >> 12;
 
-					if (z >= 4) {
-						z = 3;
-					}
 					int config = buffer.readUByte();
 					int type = config >> 2;
 					int orientation = config & 3;
@@ -465,7 +462,9 @@ public final class MapRegion {
 					 * plane--; }
 					 */
 
-					spawnObjectToWorld(scene, id, x, y, z, type, orientation, false);
+					if (z < 4) {
+						spawnObjectToWorld(scene, id, x, y, z, type, orientation, false);
+					}
 					// }
 				} while (true);
 			} while (true);
@@ -525,20 +524,21 @@ public final class MapRegion {
 		} while (true);
 	}
 
-	public final void unpackTiles(byte[] data, int dX, int dY, int regionX, int regionY) {
+	public final byte[] unpackTiles(byte[] data, int dX, int dY, int regionX, int regionY) {
 
 		Buffer buffer = new Buffer(data);
 		for (int z = 0; z < 4; z++) {
 			for (int localX = 0; localX < 64; localX++) {
 				for (int localY = 0; localY < 64; localY++) {
-					decodeMapData(buffer, localX + dX, localY + dY, z, regionX, regionY, 0);
+					decodeMapData(buffer, localX + dX, localY + dY, z,
+							regionX * 64 - dX, regionY * 64 - dY, 0);
 
 				}
 			}
 		}
 
 		this.setHeights();// XXX Fix for ending of region sloping down
-
+		return Arrays.copyOfRange(data, buffer.getPosition(), data.length);
 	}
 
 	/**
@@ -1102,18 +1102,21 @@ public final class MapRegion {
 		for (int tile_y = 0; tile_y < 4; tile_y++) {
 			for (int tile_x = chunk.offsetX; tile_x < chunk.offsetX + 64; tile_x++) {
 				for (int tile_z = chunk.offsetY; tile_z < chunk.offsetY + 64; tile_z++) {
-					save_terrain_tile(tile_y, tile_x, tile_z, buffer);
+					save_terrain_tile(chunk, tile_y, tile_x, tile_z, buffer);
 				}
 
 			}
 
 		}
 
-		byte[] data = Arrays.copyOf(buffer.getPayload(), buffer.getPosition());
+		int tileLength = buffer.getPosition();
+		byte[] extra = chunk.terrainMetadata;
+		byte[] data = Arrays.copyOf(buffer.getPayload(), tileLength + extra.length);
+		System.arraycopy(extra, 0, data, tileLength, extra.length);
 		return data;
 	}
 
-	private void save_terrain_tile(int y, int x, int z, Buffer buffer) {
+	private void save_terrain_tile(Chunk chunk, int y, int x, int z, Buffer buffer) {
 		if (overlays[y][x][z] != 0) {
 			buffer.writeByte(overlayShapes[y][x][z] * 4 + (overlayOrientations[y][x][z] & 3) + 2);
 			buffer.writeByte(overlays[y][x][z]);
@@ -1122,7 +1125,7 @@ public final class MapRegion {
 			buffer.writeByte(tileFlags[y][x][z] + 49);
 		}
 		if (underlays[y][x][z] != 0) {
-			buffer.writeByte(underlays[y][x][z] + 81);
+			buffer.writeByte((underlays[y][x][z] & 0xFF) + 81);
 		}
 		if (manualTileHeight[y][x][z] == 1 || y == 0) {
 			buffer.writeByte(1);

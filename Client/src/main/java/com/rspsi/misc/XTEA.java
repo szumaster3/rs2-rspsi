@@ -6,7 +6,7 @@ import lombok.Data;
 @Data
 public class XTEA {
 
-    @SerializedName(value="region", alternate = {"mapsquare"})
+    @SerializedName(value="region", alternate = {"mapsquare", "regionId"})
     private final int region;
 
     @SerializedName(value="keys", alternate = {"key"})

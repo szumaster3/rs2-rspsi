@@ -24,10 +24,18 @@ import java.io.IOException;
 import java.io.Reader;
 import java.nio.file.Files;
 import java.util.HashMap;
-import java.util.List;
+import java.util.Arrays;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.ConcurrentHashMap;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 import com.google.gson.reflect.TypeToken;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -41,7 +49,7 @@ import lombok.extern.slf4j.Slf4j;
 public final class XTEAManager {
 
 	@Getter
-      private static final Map<Integer, int[]> maps = new HashMap<>();
+      private static final Map<Integer, int[]> maps = new ConcurrentHashMap<>();
       public static final int[] NULL_KEYS = new int[4];
 
 
@@ -70,32 +78,35 @@ public final class XTEAManager {
       
 
       public static void loadFromJSON(File file) {
-    	  maps.clear();
-            try {
+            try (Reader reader = new FileReader(file)) {
                   Gson gson = new Gson();
-                  try (Reader reader = new FileReader(file)) {
-                	  List<XTEA> entries = gson.fromJson(reader, new TypeToken<List<XTEA>>(){}.getType());
-                      for (XTEA entry : entries) {
-                            maps.put(entry.getRegion(), entry.getKeys());
-                      }
-                  } catch(Exception ex) {
-                	  log.info("Failed to parse XTEAs in standard format, falling back to key/value pairs");
-
-	                  try (Reader reader = new FileReader(file)) {
-	                  	Map<Integer, int[]> keyPairMap = gson.fromJson(reader, new TypeToken<Map<Integer, int[]>>(){}.getType());
-	                  	keyPairMap.forEach(maps::put);
-	                  } catch (Exception ex2){
-	                  	ex2.printStackTrace();
-	                  }
+                  JsonElement root = new JsonParser().parse(reader);
+                  Map<Integer, int[]> loaded = new HashMap<>();
+                  if (root.isJsonObject() && root.getAsJsonObject().has("xteas")) {
+                        root = root.getAsJsonObject().get("xteas");
                   }
-
+                  if (root.isJsonArray()) {
+                        for (JsonElement entry : root.getAsJsonArray()) {
+                              JsonObject record = entry.getAsJsonObject();
+                              if (record.has("regionId") && record.get("keys").isJsonPrimitive()) {
+                                    int region = record.get("regionId").getAsInt();
+                                    int[] keys = Arrays.stream(record.get("keys").getAsString().split(","))
+                                          .map(String::trim).mapToInt(Integer::parseInt).toArray();
+                                    loaded.put(region, keys);
+                              } else {
+                                    XTEA key = gson.fromJson(record, XTEA.class);
+                                    loaded.put(key.getRegion(), key.getKeys());
+                              }
+                        }
+                  } else {
+                        loaded.putAll(gson.fromJson(root, new TypeToken<Map<Integer, int[]>>(){}.getType()));
+                  }
+                  loaded.values().removeIf(keys -> keys == null || keys.length != 4);
+                  maps.clear();
+                  maps.putAll(loaded);
             } catch (Exception e) {
-                  e.printStackTrace();
+                  maps.clear();
+                  log.error("Failed to read XTEA keys from {}", file, e);
             }
-
-
       }
-
-
-      
 }

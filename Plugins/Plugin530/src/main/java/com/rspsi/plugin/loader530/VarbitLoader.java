@@ -40,7 +40,7 @@ public class VarbitLoader extends VariableBitLoader {
     public void decodeVarbits(Index index) {
         bitsMap.clear();
 
-        for (int archiveId = 0; archiveId < index.archives().length; archiveId++) {
+        for (int archiveId : index.archiveIds()) {
             Archive archive = index.archive(archiveId);
             if (archive == null) continue;
 

@@ -42,12 +42,13 @@ public class ResourceProvider implements Runnable {
 	}
 
 	public final void requestMap(int file, int regionId) {
-		if(Lists.newArrayList(requests).stream().anyMatch(node -> node != null && node.getType() == CacheFileType.MAP && node.getFile() == file)) {
-			return;
+		synchronized (requests) {
+			if (requests.stream().anyMatch(node -> node instanceof MapResourceRequest
+					&& node.getFile() == file && ((MapResourceRequest) node).getRegionId() == regionId)) {
+				return;
+			}
+			requests.add(new MapResourceRequest(regionId, file));
 		}
-	
-		ResourceRequest node = new MapResourceRequest(regionId, file);
-		requests.add(node);
 	}
 
 	public final void requestFile(CacheFileType type, int file) {

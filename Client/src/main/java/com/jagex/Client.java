@@ -613,12 +613,19 @@ public final class Client implements Runnable {
 
 	private Chunk lastChunk;
 
+	private void clearMapChunks() {
+		chunks.forEach(Chunk::dispose);
+		pendingChunks.forEach(Chunk::dispose);
+		chunks.clear();
+		pendingChunks.clear();
+	}
+
 	public final void loadCoordinates(int wX, int wY, int chunkXLength, int chunkYLength) {
 		baseX = wX;
 		baseY = wY;
 
 		fullMapCanvas = new DisplayCanvas(chunkXLength * Options.mapRegionSize.get(), chunkYLength * Options.mapRegionSize.get(), false);
-		chunks.clear();
+		clearMapChunks();
 
 		gameImageBuffer.initializeRasterizer();
 		gameImageBuffer.clear(0);
@@ -639,6 +646,7 @@ public final class Client implements Runnable {
 				int cY = (wY + (64 * chunkY)) / 64;
 				int hash = (cX << 8) + cY;
 				Chunk chunk = new Chunk(hash);
+				chunk.setWorldRegion(true);
 				chunk.offsetX = (64 * chunkX);
 				chunk.offsetY = (64 * chunkY);
 
@@ -690,7 +698,7 @@ public final class Client implements Runnable {
 		baseX = 0;
 		baseY = 0;
 		fullMapCanvas = new DisplayCanvas(chunkXLength * Options.mapRegionSize.get(), chunkYLength * Options.mapRegionSize.get(), false);
-		chunks.clear();
+		clearMapChunks();
 
 		gameImageBuffer.initializeRasterizer();
 		gameImageBuffer.clear(0);
@@ -746,7 +754,7 @@ public final class Client implements Runnable {
 
 
 	public final void loadChunks(List<Chunk> chunks) {
-		this.chunks.clear();
+		clearMapChunks();
 
 		baseX = 0;
 		baseY = 0;
@@ -798,7 +806,7 @@ public final class Client implements Runnable {
 	}
 
 	public final void loadFiles(byte[] landscapeBytes, byte[] objectBytes, int regionX, int regionY) {
-		chunks.clear();
+		clearMapChunks();
 
 		baseX = 0;
 		baseY = 0;
@@ -818,8 +826,8 @@ public final class Client implements Runnable {
 		for (int chunkX = 0; chunkX < 1; chunkX++) {
 			for (int chunkY = 0; chunkY < 1; chunkY++) {
 				anInt984 = 0;
-				int cX = (0 + 64 * chunkX) / 64;
-				int cY = (0 + 64 * chunkY) / 64;
+				int cX = regionX + chunkX;
+				int cY = regionY + chunkY;
 
 				int hash = (cX << 8) + cY;
 				Chunk chunk = new Chunk(hash);
@@ -867,7 +875,7 @@ public final class Client implements Runnable {
 			}
 		} catch(Exception ex) {
 			ex.printStackTrace();
-			this.chunks.clear();
+			clearMapChunks();
 
 			loadState = LoadState.ERROR;
 
@@ -1314,14 +1322,8 @@ public final class Client implements Runnable {
 		sceneGraph.reset();
 
 
-		for (Chunk chunk : chunks) {
-			try {
-				chunk.loadChunk();
-			} catch (Exception exception) {
-				exception.printStackTrace();
-				chunks.clear();
-			}
-		}
+		chunks.forEach(Chunk::loadTerrain);
+		chunks.forEach(Chunk::loadObjects);
 		mapRegion.method171(sceneGraph);
 
 		for(int z = 0;z<4;z++)
@@ -1353,8 +1355,8 @@ public final class Client implements Runnable {
 		if (!ready)
 			return false;
 
-		loadState = LoadState.ACTIVE;
 		loadChunks();
+		loadState = LoadState.ACTIVE;
 		return true;
 	}
 

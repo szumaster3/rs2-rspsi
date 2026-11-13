@@ -7,7 +7,6 @@ import com.jagex.Client;
 import com.jagex.cache.graphics.Sprite;
 import com.jagex.io.Buffer;
 import lombok.RequiredArgsConstructor;
-import org.displee.util.Miscellaneous;
 
 import java.nio.ByteBuffer;
 
@@ -32,8 +31,8 @@ public class MapSceneLoader {
             if (mapScene.spriteId == -1)
                 continue;
 
-            int archiveId = Miscellaneous.getConfigArchive(mapScene.spriteId, 8);
-            int fileId = Miscellaneous.getConfigFile(mapScene.spriteId, 8);
+            int archiveId = mapScene.spriteId;
+            int fileId = 0;
 
             Archive spriteArchive = spriteIndex.archive(archiveId);
             if (spriteArchive == null) {
